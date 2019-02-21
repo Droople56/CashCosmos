@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour {
 
     public float currency;
     private float modifier;
-    private bool mod1;
-    private bool mod2;
 
     private float lumberPrice;
     float lumberUpgradePrice;
@@ -23,6 +21,14 @@ public class GameManager : MonoBehaviour {
     Text lumberText;
     Button lumberUpgradeButton;
     Button fertilizerUpgradeButton;
+    Button spaceLumberjacksButton;
+
+    //for idle
+    bool idleUpgrade;
+    float idleCost;
+    float currentTime;
+    float workTime;
+    int workValue;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +36,12 @@ public class GameManager : MonoBehaviour {
         modifier = 1.0f;
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
+
+        idleUpgrade = false;
+        idleCost = 100;
+        currentTime = 0.0f;
+        workTime = 15.0f;
+        workValue = 15;
 
 
         //tree price and upgrades
@@ -48,25 +60,17 @@ public class GameManager : MonoBehaviour {
         fertilizerUpgradeButton = GameObject.Find("FertilizerUpgradeButton").GetComponent<Button>();
         fertilizerUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Double Tree Growth";
         fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
+
+        spaceLumberjacksButton = GameObject.Find("SpaceLumberjacksButton").GetComponent<Button>();
+        spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
         currencyText.text = "Monies: $" + currency;
+        idleProfit();
 	}
-
-    //Calc Modifier
-    float calcModifier()
-    {
-        float total = 1.0f;
-        return total;
-    }
-
-    //Check modifier upgrades
-    void checkUpgrades()
-    {
-
-    }
 
     public void SellLumber(int value)
     {
@@ -98,5 +102,39 @@ public class GameManager : MonoBehaviour {
         fertilizerAmount++;
         fertilizerCost =  Mathf.Pow(fertilizerAmount, 3) * 200;
         fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
+    }
+
+    public void idleProfit()
+    {
+        if (idleUpgrade)
+        {
+            if (currentTime > workTime)
+            {
+                currency += workValue;
+                currentTime = 0.0f;
+            }
+            else
+            {
+                currentTime += Time.fixedDeltaTime;
+            }
+        }
+    }
+
+    public void idleButton()
+    {
+        if (currency >= idleCost)
+        {
+            if (idleUpgrade == false)
+            {
+                idleUpgrade = true;
+            }
+            else
+            {
+                workValue += 15;
+            }
+            currency -= idleCost;
+            idleCost *= 2;
+        }
+        spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
     }
 }
