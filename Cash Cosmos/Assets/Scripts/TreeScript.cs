@@ -34,7 +34,7 @@ public class TreeScript : MonoBehaviour {
                 if (GetComponent<SpriteRenderer>().enabled == true)
                 {
                     GetComponent<SpriteRenderer>().enabled = false;
-                    GetComponent<BoxCollider2D>().enabled = false;
+                    GetComponent<CircleCollider2D>().enabled = false;
                 }
                 currentTime += Time.fixedDeltaTime;
             }
@@ -43,12 +43,12 @@ public class TreeScript : MonoBehaviour {
                 growing = false;
                 currentTime = 0.0f;
                 GetComponent<SpriteRenderer>().enabled = true;
-                GetComponent<BoxCollider2D>().enabled = true;
+                GetComponent<CircleCollider2D>().enabled = true;
             }
         }
     }
 
-    private void OnMouseEnter()
+    private void OnMouseDown()
     {
         growing = true;
         mngr.SellLumber();
