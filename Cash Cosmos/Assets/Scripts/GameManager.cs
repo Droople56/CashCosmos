@@ -68,9 +68,9 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void SellLumber()
+    public void SellLumber(int value)
     {
-        currency += lumberPrice;
+        currency = lumberPrice + value + currency;
     }
 
     //when the lumber price upgraded

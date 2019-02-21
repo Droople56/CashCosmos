@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10046945ad5e94db5171c61f4cd378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetNumber: 3
 --- !u!212 &410848295
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -714,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10046945ad5e94db5171c61f4cd378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetNumber: 2
 --- !u!212 &535491570
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -929,6 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10046945ad5e94db5171c61f4cd378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetNumber: 4
 --- !u!212 &1184699599
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1333,6 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10046945ad5e94db5171c61f4cd378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetNumber: 1
 --- !u!212 &1995474598
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TreeScript : MonoBehaviour {
 
-    const float GROW_TIME = 4.0f;
+    float GROW_TIME;
     bool growing;
     float currentTime;
+    public int planetNumber;
+    int planetValue;
 
     GameManager mngr;
 
@@ -14,6 +16,28 @@ public class TreeScript : MonoBehaviour {
 	void Start () {
         growing = false;
         currentTime = 0.0f; //used to reset the trees once they're cut down
+
+        switch (planetNumber)
+        {
+            case 1:
+                planetValue = 1;
+                GROW_TIME = 4.0f;
+                break;
+            case 2:
+                planetValue = 10;
+                GROW_TIME = 6.0f;
+                break;
+            case 3:
+                planetValue = 50;
+                GROW_TIME = 8.0f;
+                break;
+            case 4:
+                planetValue = 100;
+                GROW_TIME = 10.0f;
+                break;
+            default:
+                break;
+        }
 
         mngr = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
@@ -51,6 +75,6 @@ public class TreeScript : MonoBehaviour {
     private void OnMouseDown()
     {
         growing = true;
-        mngr.SellLumber();
+        mngr.SellLumber(planetValue);
     }
 }
