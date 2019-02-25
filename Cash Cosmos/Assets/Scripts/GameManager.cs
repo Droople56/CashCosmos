@@ -30,8 +30,14 @@ public class GameManager : MonoBehaviour {
     float workTime;
     int workValue;
 
-	// Use this for initialization
-	void Start () {
+    public List<GameObject> planets;
+    public GameObject planet1;
+    public GameObject planet2;
+    public GameObject planet3;
+    public GameObject planet4;
+
+    // Use this for initialization
+    void Start () {
 
         checkPlayerPrefs();
         //modifier = 1.0f;
@@ -60,6 +66,30 @@ public class GameManager : MonoBehaviour {
         spaceLumberjacksButton = GameObject.Find("SpaceLumberjacksButton").GetComponent<Button>();
         spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
 
+        //start with random planets
+        int rand = Random.Range(1, 4);
+        GameObject thisPlanet;
+        switch (rand)
+        {
+            case 1:
+                thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f,2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                planets.Add(thisPlanet);
+                break;
+            case 2:
+                thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                planets.Add(thisPlanet);
+                break;
+            case 3:
+                thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                planets.Add(thisPlanet);
+                break;
+            case 4:
+                thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                planets.Add(thisPlanet);
+                break;
+            default:
+                break;
+        }
 
     }
 	
@@ -116,6 +146,7 @@ public class GameManager : MonoBehaviour {
         currencyText.text = "Monies: $" + currency;
         
         idleProfit();
+        scrollingPlanets();
         PlayerPrefs.SetFloat("currency",currency);
 	}
 
@@ -159,6 +190,7 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetFloat("fertilizerCost", fertilizerCost);
     }
 
+    //Add Money on an interval
     public void idleProfit()
     {
         if (idleUpgrade)
@@ -175,6 +207,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    //upgrade idle button code
     public void idleButton()
     {
         if (currency >= idleCost)
@@ -195,5 +228,66 @@ public class GameManager : MonoBehaviour {
         spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
     }
 
+    //Scrolling Planets Code
+    public void scrollingPlanets()
+    {
+        if (planets.Count > 0)
+        {
+            foreach (GameObject planet in planets)
+            {
+                planet.transform.position -= new Vector3(0.005f, 0, 0);
+            }
+        }
+        spawnPlanet();
+        deletePlanet();
+    }
 
+    //Spawn New Planets
+    public void spawnPlanet()
+    {
+        if (planets.Count < 5)
+        {
+            int rand = Random.Range(1, 4);
+            //Default Case
+            GameObject thisPlanet;
+            switch (rand)
+            {
+                case 1:
+                    thisPlanet = Instantiate(planet1, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 2:
+                    thisPlanet = Instantiate(planet2, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 3:
+                    thisPlanet = Instantiate(planet3, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 4:
+                    thisPlanet = Instantiate(planet4, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
+
+    //Cleanup Planets
+    public void deletePlanet()
+    {
+        foreach (GameObject planet in planets)
+        {
+            if (planet.transform.position.x < -3.5)
+            {
+                GameObject thisPlanet = planet;
+                planets.Remove(planet);
+                Destroy(thisPlanet);
+            }
+        }
+    }
 }
+
+
