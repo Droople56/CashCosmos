@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-    public void SellLumber(int value)
+    public void SellResource(int value)
     {
         currency = lumberPrice + value + currency;
         PlayerPrefs.SetFloat("currency", currency);
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour {
     {
         if (planets.Count < 5)
         {
-            int rand = Random.Range(1, 4);
+            int rand = Random.Range(1, 5);
             //Default Case
             GameObject thisPlanet;
             switch (rand)
@@ -288,15 +288,14 @@ public class GameManager : MonoBehaviour {
         //I had crash problem when I tried to run this all in one foreach, so I did this scuff workaround.
         foreach (GameObject planet in planets)
         {
-            /*if (planet.GetComponent<TreeScript>().planetHealth <= 0)
+            if (planet.GetComponent<TreeScript>().planetHealth < 0)
+            {
+                //planet.GetComponent<TreeScript>().planetValue *= 10;
+                destroyedPlanets.Add(planet);
+            }
+            else if (planet.transform.position.x < -3.5)
             {
                 destroyedPlanets.Add(planet);
-                planet.GetComponent<TreeScript>().destroyed = true;
-            }*/
-            if (planet.transform.position.x < -3.5)
-            {
-                destroyedPlanets.Add(planet);
-                Debug.Log(planet.GetComponent<TreeScript>().planetHealth);
             }
         }
         foreach (GameObject planet in destroyedPlanets)
