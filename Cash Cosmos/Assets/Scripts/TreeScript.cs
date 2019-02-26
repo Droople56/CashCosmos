@@ -9,6 +9,9 @@ public class TreeScript : MonoBehaviour {
     float currentTime;
     public int planetNumber;
     int planetValue;
+    public int planetHealth;
+    public float speedMod;
+    public bool destroyed;
 
     GameManager mngr;
 
@@ -16,24 +19,33 @@ public class TreeScript : MonoBehaviour {
 	void Start () {
         growing = false;
         currentTime = 0.0f; //used to reset the trees once they're cut down
+        destroyed = false;
 
         switch (planetNumber)
         {
             case 1:
                 planetValue = 1;
                 GROW_TIME = 4.0f;
+                speedMod = 1.0f;
+                planetHealth = 10;
                 break;
             case 2:
                 planetValue = 10;
                 GROW_TIME = 6.0f;
+                speedMod = 1.5f;
+                planetHealth = 15;
                 break;
             case 3:
                 planetValue = 50;
                 GROW_TIME = 8.0f;
+                speedMod = 2.0f;
+                planetHealth = 20;
                 break;
             case 4:
-                planetValue = 100;
+                planetValue = -10;
                 GROW_TIME = 10.0f;
+                speedMod = 1.0f;
+                planetHealth = 5;
                 break;
             default:
                 break;
@@ -74,7 +86,17 @@ public class TreeScript : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        growing = true;
-        mngr.SellLumber(planetValue);
+        planetHealth--;
+        if (destroyed)
+        {
+            mngr.SellLumber(planetValue * 10);
+        }
+        else
+        {
+            mngr.SellLumber(planetValue);
+        }
+        
     }
+
+    
 }

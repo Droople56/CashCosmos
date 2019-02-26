@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour {
     int workValue;
 
     public List<GameObject> planets;
+    public List<GameObject> destroyedPlanets;
+    public GameObject currentBackground;
+    public GameObject background;
+    GameObject bgTemp;
     public GameObject planet1;
     public GameObject planet2;
     public GameObject planet3;
@@ -47,7 +51,8 @@ public class GameManager : MonoBehaviour {
         
         idleUpgrade = false;
 
-
+        currentBackground = GameObject.Find("space_01");
+        bgTemp = null;
 
         currentTime = 0.0f;
         workTime = 15.0f;
@@ -147,6 +152,7 @@ public class GameManager : MonoBehaviour {
         
         idleProfit();
         scrollingPlanets();
+        bgCleanup();
         PlayerPrefs.SetFloat("currency",currency);
 	}
 
@@ -235,7 +241,8 @@ public class GameManager : MonoBehaviour {
         {
             foreach (GameObject planet in planets)
             {
-                planet.transform.position -= new Vector3(0.005f, 0, 0);
+                float speed = 0.005f / planet.GetComponent<TreeScript>().speedMod;
+                planet.transform.position -= new Vector3(speed, 0, 0);
             }
         }
         spawnPlanet();
@@ -253,19 +260,19 @@ public class GameManager : MonoBehaviour {
             switch (rand)
             {
                 case 1:
-                    thisPlanet = Instantiate(planet1, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet1, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 2:
-                    thisPlanet = Instantiate(planet2, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet2, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 3:
-                    thisPlanet = Instantiate(planet3, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet3, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 4:
-                    thisPlanet = Instantiate(planet4, new Vector3(3.5f, Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet4, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 default:
@@ -278,14 +285,39 @@ public class GameManager : MonoBehaviour {
     //Cleanup Planets
     public void deletePlanet()
     {
+        //I had crash problem when I tried to run this all in one foreach, so I did this scuff workaround.
         foreach (GameObject planet in planets)
         {
+            /*if (planet.GetComponent<TreeScript>().planetHealth <= 0)
+            {
+                destroyedPlanets.Add(planet);
+                planet.GetComponent<TreeScript>().destroyed = true;
+            }*/
             if (planet.transform.position.x < -3.5)
             {
-                GameObject thisPlanet = planet;
-                planets.Remove(planet);
-                Destroy(thisPlanet);
+                destroyedPlanets.Add(planet);
+                Debug.Log(planet.GetComponent<TreeScript>().planetHealth);
             }
+        }
+        foreach (GameObject planet in destroyedPlanets)
+        {
+            planets.Remove(planet);
+            Destroy(planet);
+        }
+        destroyedPlanets.RemoveRange(0, destroyedPlanets.Count);
+    }
+
+    //swap out long parallax bg
+    public void bgCleanup()
+    {
+        if (currentBackground.transform.position.x < -9.65)
+        {
+            bgTemp = currentBackground;
+            currentBackground = Instantiate(background, new Vector3(14.6f, -1.78f, 1), Quaternion.identity);
+        }
+        if (bgTemp != null && bgTemp.transform.position.x < -14.6)
+        {
+            Destroy(bgTemp);
         }
     }
 }
