@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 220358058}
   - component: {fileID: 220358057}
   m_Layer: 0
-  m_Name: LumberUpgradeButton
+  m_Name: ResourceUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1560344064}
-        m_MethodName: IncreaseLumberPrice
+        m_MethodName: IncreaseResourcePrice
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -649,7 +649,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upcharge Lumber
+  m_Text: Upcharge Resource
 --- !u!222 &528176628
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ GameObject:
   - component: {fileID: 1476754976}
   - component: {fileID: 1476754975}
   m_Layer: 0
-  m_Name: LumberText
+  m_Name: ResourceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Lumber Price
+  m_Text: Resource Price
 --- !u!222 &1476754976
 CanvasRenderer:
   m_ObjectHideFlags: 0

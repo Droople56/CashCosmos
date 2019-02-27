@@ -8,18 +8,18 @@ public class GameManager : MonoBehaviour {
     public float currency;
     //private float modifier;
 
-    private float lumberPrice;
-    float lumberUpgradePrice;
+    private float resourcePrice;
+    float resourceUpgradePrice;
 
     public float treeGrowthFactor;
     float fertilizerCost;
     int fertilizerAmount;
 
-    const string LUMBER_STR = "Resource Value + $";
+    const string RESOURCE_STR = "Resource Value + $";
 
     Text currencyText;
-    Text lumberText;
-    Button lumberUpgradeButton;
+    Text resourceText;
+    Button resourceUpgradeButton;
     Button fertilizerUpgradeButton;
     Button spaceLumberjacksButton;
 
@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour {
         currentTime = 0.0f;
         workTime = 15.0f;
 
-        lumberText = GameObject.Find("LumberText").GetComponent<Text>();
-        lumberUpgradeButton = GameObject.Find("LumberUpgradeButton").GetComponent<Button>();
-        lumberUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = LUMBER_STR + 1;
-        lumberUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + lumberUpgradePrice;
+        resourceText = GameObject.Find("ResourceText").GetComponent<Text>();
+        resourceUpgradeButton = GameObject.Find("ResourceUpgradeButton").GetComponent<Button>();
+        resourceUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = RESOURCE_STR + 1;
+        resourceUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + resourceUpgradePrice;
 
         fertilizerUpgradeButton = GameObject.Find("FertilizerUpgradeButton").GetComponent<Button>();
         fertilizerUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Double Tree Growth";
@@ -116,15 +116,15 @@ public class GameManager : MonoBehaviour {
             idleCost = 100;
 
         //tree price and upgrades
-        if (PlayerPrefs.HasKey("lumberPrice"))
-            lumberPrice = PlayerPrefs.GetFloat("lumberPrice");
+        if (PlayerPrefs.HasKey("resourcePrice"))
+            resourcePrice = PlayerPrefs.GetFloat("resourcePrice");
         else
-            lumberPrice = 1.0f;
+            resourcePrice = 1.0f;
 
-        if (PlayerPrefs.HasKey("lumberUpgradePrice"))
-            lumberUpgradePrice = PlayerPrefs.GetFloat("lumberUpgradePrice");
+        if (PlayerPrefs.HasKey("resourceUpgradePrice"))
+            resourceUpgradePrice = PlayerPrefs.GetFloat("resourceUpgradePrice");
         else
-            lumberUpgradePrice = 10.0f;
+            resourceUpgradePrice = 10.0f;
 
         if (PlayerPrefs.HasKey("treeGrowthFactor"))
             treeGrowthFactor = PlayerPrefs.GetFloat("treeGrowthFactor");
@@ -160,24 +160,24 @@ public class GameManager : MonoBehaviour {
 
     public void SellResource(int value)
     {
-        currency = lumberPrice + value + currency;
+        currency = resourcePrice + value + currency;
         PlayerPrefs.SetFloat("currency", currency);
     }
 
-    //when the lumber price upgraded
-    public void IncreaseLumberPrice(float amount)
+    //when the resource price upgraded
+    public void IncreaseResourcePrice(float amount)
     {
-        if (currency >= lumberUpgradePrice)
+        if (currency >= resourceUpgradePrice)
         {
-            currency -= lumberUpgradePrice;
-            lumberPrice += amount;
-            PlayerPrefs.SetFloat("lumberPrice", lumberPrice);
+            currency -= resourceUpgradePrice;
+            resourcePrice += amount;
+            PlayerPrefs.SetFloat("resourcePrice", resourcePrice);
         }
 
-        lumberUpgradePrice = Mathf.Pow(lumberPrice, 2) * 10;
-        lumberUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + lumberUpgradePrice;
-        lumberText.text = "Lumber Price: $" + lumberPrice;
-        PlayerPrefs.SetFloat("lumberUpgradePrice", lumberUpgradePrice);
+        resourceUpgradePrice = Mathf.Pow(resourcePrice, 2) * 10;
+        resourceUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + resourceUpgradePrice;
+        resourceText.text = "Lumber Price: $" + resourcePrice;
+        PlayerPrefs.SetFloat("resourceUpgradePrice", resourceUpgradePrice);
     }
 
     public void IncreaseFertilizer(float amount)
