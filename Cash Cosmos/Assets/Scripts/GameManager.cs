@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     float fertilizerCost;
     int fertilizerAmount;
 
-    const string LUMBER_STR = "Lumber Price + $";
+    const string LUMBER_STR = "Resource Value + $";
 
     Text currencyText;
     Text lumberText;
@@ -70,28 +70,31 @@ public class GameManager : MonoBehaviour {
         spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
 
         //start with random planets
-        int rand = Random.Range(1, 4);
-        GameObject thisPlanet;
-        switch (rand)
+        for (int i = 0; i < 5; i++)
         {
-            case 1:
-                thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f,2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
-                planets.Add(thisPlanet);
-                break;
-            case 2:
-                thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
-                planets.Add(thisPlanet);
-                break;
-            case 3:
-                thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
-                planets.Add(thisPlanet);
-                break;
-            case 4:
-                thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
-                planets.Add(thisPlanet);
-                break;
-            default:
-                break;
+            int rand = Random.Range(1, 4);
+            GameObject thisPlanet;
+            switch (rand)
+            {
+                case 1:
+                    thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 2:
+                    thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 3:
+                    thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                case 4:
+                    thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    planets.Add(thisPlanet);
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
