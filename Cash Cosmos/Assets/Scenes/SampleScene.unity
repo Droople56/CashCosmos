@@ -145,7 +145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 459, y: -184}
+  m_AnchoredPosition: {x: 459, y: -124}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &112580877
@@ -223,7 +223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 368, y: -817}
+  m_AnchoredPosition: {x: 1050, y: -389.99988}
   m_SizeDelta: {x: 160, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &220358057
@@ -787,7 +787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 461, y: -263}
+  m_AnchoredPosition: {x: 461, y: -202.99988}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476754975
@@ -857,9 +857,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e9319880a3cf646a3668381007e76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currency: 1000000
+  currency: 0
   treeGrowthFactor: 0
   planets: []
+  destroyedPlanets: []
+  currentBackground: {fileID: 0}
+  background: {fileID: 1671223963926552, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
   planet1: {fileID: 1829207613277664, guid: c5bc0279abad7c541a7ab861b16c0caf, type: 2}
   planet2: {fileID: 1473130105126148, guid: 5083daa4406b40a4084cc0e1a557507e, type: 2}
   planet3: {fileID: 1163439343706838, guid: 0e9099fd7b594d149b8ab772ae90f408, type: 2}
@@ -877,6 +880,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1578540237
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 8.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296068266330304, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8918ccd678c53194f95241517bc791c9, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1594161379
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 368, y: -439}
+  m_AnchoredPosition: {x: 360, y: -389.99988}
   m_SizeDelta: {x: 160, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1665126357
@@ -1323,7 +1368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 369, y: -1160}
+  m_AnchoredPosition: {x: 360, y: -739.99994}
   m_SizeDelta: {x: 160, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2137130730

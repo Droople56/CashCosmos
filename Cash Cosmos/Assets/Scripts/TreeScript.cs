@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class TreeScript : MonoBehaviour {
 
-    //float GROW_TIME;
-    //bool growing;
-    //float currentTime;
-
     public int planetNumber;
     public int planetValue;
     public int planetHealth;
@@ -23,22 +19,22 @@ public class TreeScript : MonoBehaviour {
             case 1:
                 planetValue = 1;
                 speedMod = 1.0f;
-                planetHealth = 10;
+                planetHealth = 9;
                 break;
             case 2:
                 planetValue = 10;
                 speedMod = 1.5f;
-                planetHealth = 15;
+                planetHealth = 14;
                 break;
             case 3:
                 planetValue = 50;
                 speedMod = 2.0f;
-                planetHealth = 20;
+                planetHealth = 19;
                 break;
             case 4:
                 planetValue = -10;
                 speedMod = 1.0f;
-                planetHealth = 5;
+                planetHealth = 4;
                 break;
             default:
                 break;
@@ -49,18 +45,21 @@ public class TreeScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //This Gives the player too much money since they can hold teh mouse down to continue selling, suggestions?
-        /*if (planetHealth == 1)
-        {
-            planetValue = planetValue * 10;
-        }*/
+        
 	}
 
     private void OnMouseDown()
     {
         planetHealth--;
+        finalClick();
         mngr.SellResource(planetValue);
     }
 
-    
+    private void finalClick()
+    {
+        if (planetHealth == -1)
+        {
+            this.planetValue = this.planetValue * 10;
+        }
+    }
 }

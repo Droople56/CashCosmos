@@ -57,8 +57,6 @@ public class GameManager : MonoBehaviour {
         currentTime = 0.0f;
         workTime = 15.0f;
 
-
-
         lumberText = GameObject.Find("LumberText").GetComponent<Text>();
         lumberUpgradeButton = GameObject.Find("LumberUpgradeButton").GetComponent<Button>();
         lumberUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = LUMBER_STR + 1;
@@ -195,6 +193,7 @@ public class GameManager : MonoBehaviour {
         fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
         PlayerPrefs.SetFloat("fertilizerCost", fertilizerCost);
     }
+
 
     //Add Money on an interval
     public void idleProfit()
