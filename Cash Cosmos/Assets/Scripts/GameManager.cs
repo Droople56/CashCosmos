@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour {
 
         resourceUpgradePrice = Mathf.Pow(resourcePrice, 2) * 10;
         resourceUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + resourceUpgradePrice;
-        resourceText.text = "Lumber Price: $" + resourcePrice;
+        resourceText.text = "Resource Price: $" + resourcePrice;
         PlayerPrefs.SetFloat("resourceUpgradePrice", resourceUpgradePrice);
     }
 
