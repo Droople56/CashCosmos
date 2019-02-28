@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,11 +41,15 @@ public class GameManager : MonoBehaviour {
     public GameObject planet3;
     public GameObject planet4;
 
+    long lastShutdownTime;
+    long currentTimeIdle;
     // Use this for initialization
     void Start () {
-
+        workTime = 15.0f;
         checkPlayerPrefs();
         //modifier = 1.0f;
+
+
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
 
@@ -55,7 +60,7 @@ public class GameManager : MonoBehaviour {
         bgTemp = null;
 
         currentTime = 0.0f;
-        workTime = 15.0f;
+        
 
         resourceText = GameObject.Find("ResourceText").GetComponent<Text>();
         resourceUpgradeButton = GameObject.Find("ResourceUpgradeButton").GetComponent<Button>();
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour {
                     break;
             }
         }
-
+        
     }
 	
     //checks for saved data on start
@@ -145,6 +150,25 @@ public class GameManager : MonoBehaviour {
             fertilizerCost = PlayerPrefs.GetFloat("fertilizerCost");
         else
             fertilizerCost = Mathf.Pow(fertilizerAmount, 3) * 200;
+
+        if (PlayerPrefs.HasKey("lastShutdownTime")&&idleUpgrade)
+        {
+            long.TryParse(PlayerPrefs.GetString("lastShutdownTime", "0"), out lastShutdownTime);
+            calculateAwayProfit();
+        }
+            
+    }
+
+    //calculate idle gains between last time app was closed and now
+    void calculateAwayProfit()
+    {
+        //calculates time difference between last shutdown and current time
+        System.TimeSpan timePassed = System.DateTime.Now - new System.DateTime(lastShutdownTime);
+        
+        //takes seconds past and calculates money earned while away
+        float profit= Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime * workValue);
+        
+        currency += profit;
     }
 
 	// Update is called once per frame
@@ -212,6 +236,9 @@ public class GameManager : MonoBehaviour {
             {
                 currentTime += Time.fixedDeltaTime;
             }
+            
+            PlayerPrefs.SetString("lastShutdownTime", System.DateTime.Now.Ticks.ToString());
+            
         }
     }
 
