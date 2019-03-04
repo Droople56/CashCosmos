@@ -85,19 +85,19 @@ public class GameManager : MonoBehaviour {
             switch (rand)
             {
                 case 1:
-                    thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 2:
-                    thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 3:
-                    thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 4:
-                    thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.0f, 0.75f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 default:
@@ -292,19 +292,19 @@ public class GameManager : MonoBehaviour {
             switch (rand)
             {
                 case 1:
-                    thisPlanet = Instantiate(planet1, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet1, new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 2:
-                    thisPlanet = Instantiate(planet2, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet2, new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 3:
-                    thisPlanet = Instantiate(planet3, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet3, new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 case 4:
-                    thisPlanet = Instantiate(planet4, new Vector3(3.5f, Random.Range(-4.0f, 0.5f), 0), Quaternion.identity);
+                    thisPlanet = Instantiate(planet4, new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
                     planets.Add(thisPlanet);
                     break;
                 default:
