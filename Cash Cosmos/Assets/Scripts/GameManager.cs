@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
     int fertilizerAmount;
 
     const string RESOURCE_STR = "Resource Value + $";
+    const int MAX_PLANETS = 10;
+    int numPlanets;
 
     Text currencyText;
     Text resourceText;
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour {
         checkPlayerPrefs();
         //modifier = 1.0f;
 
-
+        numPlanets = 5;
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
 
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour {
         spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
 
         //start with random planets
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < numPlanets; i++)
         {
             int rand = Random.Range(1, 4);
             GameObject thisPlanet;
@@ -207,12 +209,18 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetFloat("resourceUpgradePrice", resourceUpgradePrice);
     }
 
+    //This is the Add Planet stuff
     public void IncreaseFertilizer(float amount)
     {
         if(currency >= fertilizerCost)
         {
             currency -= fertilizerCost;
-            treeGrowthFactor *= 2.0f;
+            //treeGrowthFactor *= 2.0f;
+
+            if (numPlanets < MAX_PLANETS)
+            {
+                numPlanets++;
+            }
 
             PlayerPrefs.SetFloat("treeGrowthFactor", treeGrowthFactor);
         }
@@ -222,6 +230,11 @@ public class GameManager : MonoBehaviour {
         fertilizerCost =  Mathf.Pow(fertilizerAmount, 3) * 200;
         fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
         PlayerPrefs.SetFloat("fertilizerCost", fertilizerCost);
+
+        if (numPlanets == MAX_PLANETS)
+        {
+            fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "MAXED OUT";
+        }
     }
 
 
@@ -284,7 +297,7 @@ public class GameManager : MonoBehaviour {
     //Spawn New Planets
     public void spawnPlanet()
     {
-        if (planets.Count < 5)
+        if (planets.Count < numPlanets)
         {
             int rand = Random.Range(1, 5);
             //Default Case
@@ -363,6 +376,7 @@ public class GameManager : MonoBehaviour {
         workValue = 0.0f;
         fertilizerAmount = 1;
         fertilizerCost = Mathf.Pow(fertilizerAmount, 3) * 200;
+        numPlanets = 5;
 
         //Update button texts
         resourceText.text = "Resource Price: $" + resourcePrice;
