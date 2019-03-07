@@ -12,23 +12,19 @@ public class GameManager : MonoBehaviour {
     private float resourcePrice;
     float resourceUpgradePrice;
 
-    public float treeGrowthFactor;
-    float fertilizerCost;
-    int fertilizerAmount;
+    float planetUpgradeCost;
+    int planetUpgradeAmount;
 
-    const string RESOURCE_STR = "Resource Value + $";
     const int MAX_PLANETS = 10;
     int numPlanets;
 
     Text currencyText;
     Text resourceText;
     Button resourceUpgradeButton;
-    Button fertilizerUpgradeButton;
-    
+    Button planetUpgradeButton;
 
     //idle1
     float currentTime;
-    bool idleUpgrade;
     float idleCost;
     public float workTime;
     float workValue;
@@ -37,7 +33,6 @@ public class GameManager : MonoBehaviour {
 
     //for idle2
     float currentTime2;
-    bool idleUpgrade2;
     float idleCost2;
     public float workTime2;
     float workValue2;
@@ -46,12 +41,18 @@ public class GameManager : MonoBehaviour {
 
     //for idle3
     float currentTime3;
-    bool idleUpgrade3;
     float idleCost3;
     public float workTime3;
     float workValue3;
     public float workIncrement3;
     Button idle3Button;
+
+    //click strength
+    [HideInInspector]
+    public int clickUpgradeAmount;
+    float clickUpgradeCost;
+    public float clickUpgradeIncrement;
+    Button clickUpgradeButton;
 
     public List<GameObject> planets;
     public List<GameObject> destroyedPlanets;
@@ -70,13 +71,9 @@ public class GameManager : MonoBehaviour {
     void Start () {
         checkPlayerPrefs();
 
-        numPlanets = 9;
+        numPlanets = 5;
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
-
-        idleUpgrade = false;
-        idleUpgrade2 = false;
-        idleUpgrade3 = false;
 
         currentBackground = GameObject.Find("space_01");
         bgTemp = null;
@@ -92,9 +89,11 @@ public class GameManager : MonoBehaviour {
         resourceUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Resource Value + $" + 1;
         resourceUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + resourceUpgradePrice;
 
-        fertilizerUpgradeButton = GameObject.Find("FertilizerUpgradeButton").GetComponent<Button>();
-        fertilizerUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Double Tree Growth";
-        fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
+        planetUpgradeButton = GameObject.Find("PlanetUpgradeButton").GetComponent<Button>();
+        planetUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + planetUpgradeCost;
+
+        clickUpgradeButton = GameObject.Find("ClickUpgradeButton").GetComponent<Button>();
+        clickUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + clickUpgradeCost;
 
         //idle buttons
         spaceLumberjacksButton = GameObject.Find("SpaceLumberjacksButton").GetComponent<Button>();
@@ -142,6 +141,16 @@ public class GameManager : MonoBehaviour {
     //checks for saved data on start
     public void checkPlayerPrefs()
     {
+        if (PlayerPrefs.HasKey("clickUpgradeAmount"))
+            clickUpgradeAmount = PlayerPrefs.GetInt("clickUpgradeAmount");
+        else
+            clickUpgradeAmount = 1;
+
+        if (PlayerPrefs.HasKey("clickUpgradeCost"))
+            clickUpgradeCost = PlayerPrefs.GetFloat("clickUpgradeCost");
+        else
+            clickUpgradeCost = clickUpgradeIncrement;
+
         if (PlayerPrefs.HasKey("currency"))
             currency = PlayerPrefs.GetFloat("currency");
         else
@@ -151,7 +160,6 @@ public class GameManager : MonoBehaviour {
         if (PlayerPrefs.HasKey("idleCost"))
         {
             idleCost = PlayerPrefs.GetFloat("idleCost");
-            idleUpgrade = true;
         }
         else
             idleCost = 100;
@@ -159,7 +167,6 @@ public class GameManager : MonoBehaviour {
         if (PlayerPrefs.HasKey("idleCost2"))
         {
             idleCost2 = PlayerPrefs.GetFloat("idleCost2");
-            idleUpgrade2 = true;
         }
         else
             idleCost2 = 1000;
@@ -167,7 +174,6 @@ public class GameManager : MonoBehaviour {
         if (PlayerPrefs.HasKey("idleCost3"))
         {
             idleCost3 = PlayerPrefs.GetFloat("idleCost3");
-            idleUpgrade3 = true;
         }
         else
             idleCost3 = 10000;
@@ -182,11 +188,6 @@ public class GameManager : MonoBehaviour {
             resourceUpgradePrice = PlayerPrefs.GetFloat("resourceUpgradePrice");
         else
             resourceUpgradePrice = 10.0f;
-
-        if (PlayerPrefs.HasKey("treeGrowthFactor"))
-            treeGrowthFactor = PlayerPrefs.GetFloat("treeGrowthFactor");
-        else
-            treeGrowthFactor = 1.0f;
 
         //idle work values
         if (PlayerPrefs.HasKey("workValue"))
@@ -204,17 +205,17 @@ public class GameManager : MonoBehaviour {
         else
             workValue3 = 0.0f;
 
-        if (PlayerPrefs.HasKey("fertilizerAmount"))
-            fertilizerAmount = PlayerPrefs.GetInt("fertilizerAmount");
+        if (PlayerPrefs.HasKey("planetUpgradeAmount"))
+            planetUpgradeAmount = PlayerPrefs.GetInt("planetUpgradeAmount");
         else
-            fertilizerAmount = 1;
+            planetUpgradeAmount = 1;
 
-        if (PlayerPrefs.HasKey("fertilizerCost"))
-            fertilizerCost = PlayerPrefs.GetFloat("fertilizerCost");
+        if (PlayerPrefs.HasKey("planetUpgradeCost"))
+            planetUpgradeCost = PlayerPrefs.GetFloat("planetUpgradeCost");
         else
-            fertilizerCost = Mathf.Pow(fertilizerAmount, 3) * 200;
+            planetUpgradeCost = Mathf.Pow(planetUpgradeAmount, 3) * 200;
 
-        if (PlayerPrefs.HasKey("lastShutdownTime")&&idleUpgrade)
+        if (PlayerPrefs.HasKey("lastShutdownTime"))
         {
             long.TryParse(PlayerPrefs.GetString("lastShutdownTime", "0"), out lastShutdownTime);
             calculateAwayProfit();
@@ -227,11 +228,18 @@ public class GameManager : MonoBehaviour {
     {
         //calculates time difference between last shutdown and current time
         System.TimeSpan timePassed = System.DateTime.Now - new System.DateTime(lastShutdownTime);
-        
+
+        float profit = 0.0f;
+
         //takes seconds past and calculates money earned while away
-        float profit = Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime * workValue);
-        profit += Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime2 * workValue2);
-        profit += Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime3 * workValue3);
+        if(workValue > 0.0f)
+            profit += Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime * workValue);
+
+        if(workValue2 > 0.0f)
+            profit += Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime2 * workValue2);
+
+        if(workValue3 > 0.0f)
+            profit += Mathf.FloorToInt((float)timePassed.TotalSeconds / workTime3 * workValue3);
 
         currency += profit;
     }
@@ -270,30 +278,48 @@ public class GameManager : MonoBehaviour {
     }
 
     //This is the Add Planet stuff
-    public void IncreaseFertilizer(float amount)
+    public void IncreasePlanetAmount(float amount)
     {
-        if(currency >= fertilizerCost)
+        if (numPlanets == MAX_PLANETS)
         {
-            currency -= fertilizerCost;
-            //treeGrowthFactor *= 2.0f;
+            planetUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "MAXED OUT";
+        }
+        else if (currency >= planetUpgradeCost)
+        {
+            currency -= planetUpgradeCost;
 
             if (numPlanets < MAX_PLANETS)
             {
                 numPlanets++;
             }
 
-            PlayerPrefs.SetFloat("treeGrowthFactor", treeGrowthFactor);
+            planetUpgradeAmount++;
+            PlayerPrefs.SetInt("planetUpgradeAmount", planetUpgradeAmount);
+            planetUpgradeCost = Mathf.Pow(planetUpgradeAmount, 3) * 200;
+            planetUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + planetUpgradeCost;
+            PlayerPrefs.SetFloat("planetUpgradeCost", planetUpgradeCost);
         }
+    }
 
-        fertilizerAmount++;
-        PlayerPrefs.SetInt("fertilizerAmount", fertilizerAmount);
-        fertilizerCost =  Mathf.Pow(fertilizerAmount, 3) * 200;
-        fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
-        PlayerPrefs.SetFloat("fertilizerCost", fertilizerCost);
-
-        if (numPlanets == MAX_PLANETS)
+    public void IncreaseClickStrength()
+    {
+        if(currency >= clickUpgradeCost)
         {
-            fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "MAXED OUT";
+            currency -= clickUpgradeCost;
+            clickUpgradeAmount++;
+            PlayerPrefs.SetInt("clickUpgradeAmount", clickUpgradeAmount);
+
+            if(clickUpgradeAmount >= 2)
+            {
+                clickUpgradeCost = clickUpgradeAmount * 50000 * 10;
+            }
+            else
+            {
+                clickUpgradeCost = clickUpgradeAmount * 50000;
+            }
+
+            PlayerPrefs.SetFloat("clickUpgradeCost", clickUpgradeCost);
+            clickUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + clickUpgradeCost;
         }
     }
 
@@ -301,7 +327,7 @@ public class GameManager : MonoBehaviour {
     //Add Money on an interval
     public void idleProfit()
     {
-        if (idleUpgrade || workValue > 0.0f)
+        if (workValue > 0.0f)
         {
             if (currentTime > workTime)
             {
@@ -316,7 +342,7 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetString("lastShutdownTime", System.DateTime.Now.Ticks.ToString());
         }
 
-        if (idleUpgrade2 || workValue2 > 0.0f)
+        if (workValue2 > 0.0f)
         {
             if (currentTime2 > workTime2)
             {
@@ -331,7 +357,7 @@ public class GameManager : MonoBehaviour {
             PlayerPrefs.SetString("lastShutdownTime", System.DateTime.Now.Ticks.ToString());
         }
 
-        if (idleUpgrade3 || workValue3 > 0.0f)
+        if (workValue3 > 0.0f)
         {
             if (currentTime3 > workTime3)
             {
@@ -352,15 +378,8 @@ public class GameManager : MonoBehaviour {
     {
         if (currency >= idleCost)
         {
-            if (idleUpgrade == false)
-            {
-                idleUpgrade = true;
-            }
-            else
-            {
-                workValue += workIncrement;
-                PlayerPrefs.SetFloat("workValue", workValue);
-            }
+            workValue += workIncrement;
+            PlayerPrefs.SetFloat("workValue", workValue);
             currency -= idleCost;
             idleCost *= 2;
             PlayerPrefs.SetFloat("idleCost", idleCost);
@@ -372,15 +391,8 @@ public class GameManager : MonoBehaviour {
     {
         if(currency >= idleCost2)
         {
-            if(idleUpgrade2 == false)
-            {
-                idleUpgrade2 = true;
-            }
-            else
-            {
-                workValue2 += workIncrement2;
-                PlayerPrefs.SetFloat("workValue2", workValue2);
-            }
+            workValue2 += workIncrement2;
+            PlayerPrefs.SetFloat("workValue2", workValue2);
             currency -= idleCost2;
             idleCost2 *= 2;
             PlayerPrefs.SetFloat("idleCost2", idleCost2);
@@ -392,15 +404,8 @@ public class GameManager : MonoBehaviour {
     {
         if (currency >= idleCost3)
         {
-            if (idleUpgrade3 == false)
-            {
-                idleUpgrade3 = true;
-            }
-            else
-            {
-                workValue3 += workIncrement3;
-                PlayerPrefs.SetFloat("workValue3", workValue3);
-            }
+            workValue3 += workIncrement3;
+            PlayerPrefs.SetFloat("workValue3", workValue3);
             currency -= idleCost3;
             idleCost3 *= 2;
             PlayerPrefs.SetFloat("idleCost3", idleCost3);
@@ -500,27 +505,22 @@ public class GameManager : MonoBehaviour {
     public void ResetUpgrades()
     {
         currency = 0;
-        
+
         resourcePrice = 1.0f;
         resourceUpgradePrice = 10.0f;
-        treeGrowthFactor = 1.0f;
 
-        idleCost = 100;
-        idleCost2 = 1000;
-        idleCost3 = 10000;
-
-        workValue = 0.0f;
-        workValue2 = 0.0f;
-        workValue3 = 0.0f;
-
-        fertilizerAmount = 1;
-        fertilizerCost = Mathf.Pow(fertilizerAmount, 3) * 200;
+        planetUpgradeAmount = 1;
+        planetUpgradeCost = Mathf.Pow(planetUpgradeAmount, 3) * 200;
         numPlanets = 5;
+
+        clickUpgradeAmount = 1;
+        clickUpgradeCost = clickUpgradeIncrement;
 
         //Update button texts
         resourceText.text = "Resource Price: $" + resourcePrice;
         resourceUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + resourceUpgradePrice;
-        fertilizerUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + fertilizerCost;
+        planetUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + planetUpgradeCost;
+        clickUpgradeButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + clickUpgradeCost;
         spaceLumberjacksButton.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost;
         idle2Button.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost2;
         idle3Button.transform.GetChild(1).GetComponent<Text>().text = "Cost: $" + idleCost3;
@@ -529,14 +529,23 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetFloat("currency", currency);
         PlayerPrefs.SetFloat("resourcePrice", resourcePrice);
         PlayerPrefs.SetFloat("resourceUpgradePrice", resourceUpgradePrice);
-        PlayerPrefs.SetFloat("treeGrowthFactor", treeGrowthFactor);
-        PlayerPrefs.SetInt("fertilizerAmount", fertilizerAmount);
-        PlayerPrefs.SetFloat("fertilizerCost", fertilizerCost);
+        PlayerPrefs.SetInt("planetUpgradeAmount", planetUpgradeAmount);
+        PlayerPrefs.SetFloat("planetUpgradeCost", planetUpgradeCost);
+        PlayerPrefs.SetInt("clickUpgradeAmount", clickUpgradeAmount);
+        PlayerPrefs.SetFloat("clickUpgradeCost", clickUpgradeCost);
 
+        //reset workValues
+        workValue = 0.0f;
+        workValue2 = 0.0f;
+        workValue3 = 0.0f;
         PlayerPrefs.SetFloat("workValue", workValue);
         PlayerPrefs.SetFloat("worKValue2", workValue2);
         PlayerPrefs.SetFloat("worKValue3", workValue3);
 
+        //reset idleCosts
+        idleCost = 100;
+        idleCost2 = 1000;
+        idleCost3 = 10000;
         PlayerPrefs.SetFloat("idleCost", idleCost);
         PlayerPrefs.SetFloat("idleCost2", idleCost2);
         PlayerPrefs.SetFloat("idleCost3", idleCost3);

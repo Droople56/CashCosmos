@@ -13,12 +13,15 @@ public class TreeScript : MonoBehaviour {
     private Vector2 planetFeedbackScale;
     private int scaleTimer;
     GameManager mngr;
+
+    int clickStrength;
 	
 	private AudioSource audioSrc;
 	
 	void Awake() {
 		mngr = GameObject.Find("GameManager").GetComponent<GameManager>();
 		audioSrc = mngr.GetComponent<AudioSource>();
+        clickStrength = mngr.clickUpgradeAmount;
 	}
 	
 	// Use this for initialization
@@ -98,10 +101,10 @@ public class TreeScript : MonoBehaviour {
     private void OnMouseDown()
     {
 		audioSrc.PlayOneShot(mngr.crumbleSound, 0.8f);
-        planetHealth--;
+        planetHealth -= clickStrength;
         giveFeedback = true;
         finalClick();
-        mngr.SellResource(planetValue);
+        mngr.SellResource(planetValue * clickStrength);
     }
 
     void clickFeedback()
@@ -130,10 +133,10 @@ public class TreeScript : MonoBehaviour {
 
     private void finalClick()
     {
-        if (planetHealth == -1)
+        if (planetHealth <= -1)
         {
 			audioSrc.PlayOneShot(mngr.explosionSound, 0.2f);
-            this.planetValue = this.planetValue * 10;
+            this.planetValue = this.planetValue * 10 * clickStrength;
         }
     }
 }
