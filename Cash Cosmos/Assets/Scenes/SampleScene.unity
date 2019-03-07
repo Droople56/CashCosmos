@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 512472330}
   - component: {fileID: 512472329}
   m_Layer: 0
-  m_Name: Mercenaries
+  m_Name: MercenaryValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1034,7 +1034,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lumberjacks:'
+  m_Text: 'Lumberjack Value:'
 --- !u!222 &512472330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1253,7 +1253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &620945493
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2571,7 +2571,7 @@ GameObject:
   - component: {fileID: 1610666935}
   - component: {fileID: 1610666934}
   m_Layer: 0
-  m_Name: Lumberjacks
+  m_Name: LumberjackValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2627,7 +2627,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lumberjacks:'
+  m_Text: 'Lumberjack Value:'
 --- !u!222 &1610666935
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2770,7 +2770,7 @@ GameObject:
   - component: {fileID: 1667067768}
   - component: {fileID: 1667067767}
   m_Layer: 0
-  m_Name: Miners
+  m_Name: MinerValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2826,7 +2826,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Miners:'
+  m_Text: 'Miner Value:'
 --- !u!222 &1667067768
 CanvasRenderer:
   m_ObjectHideFlags: 0

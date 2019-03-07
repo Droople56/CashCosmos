@@ -564,9 +564,9 @@ public class GameManager : MonoBehaviour {
         planetsText.GetComponent<Text>().text = "Planets: " + numPlanets;
         resourceValueText.GetComponent<Text>().text = "Resource Value: " + resourcePrice;
         tapPowerText.GetComponent<Text>().text = "Tap Power: " + clickUpgradeAmount;
-        lumberjacksText.GetComponent<Text>().text = "Lumberjacks: ";
-        minersText.GetComponent<Text>().text = "Miners: ";
-        mercenariesText.GetComponent<Text>().text = "Mercenaries: ";
+        lumberjacksText.GetComponent<Text>().text = "Lumberjack Value: " + workValue;
+        minersText.GetComponent<Text>().text = "Miner Value: " + workValue2;
+        mercenariesText.GetComponent<Text>().text = "Mercenary Value: " + workValue3;
     }
 }
 
