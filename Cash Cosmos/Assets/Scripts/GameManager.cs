@@ -67,6 +67,13 @@ public class GameManager : MonoBehaviour {
     long lastShutdownTime;
     long currentTimeIdle;
 
+    public Text planetsText;
+    public Text resourceValueText;
+    public Text tapPowerText;
+    public Text lumberjacksText;
+    public Text minersText;
+    public Text mercenariesText;
+
     // Use this for initialization
     void Start () {
         checkPlayerPrefs();
@@ -251,6 +258,7 @@ public class GameManager : MonoBehaviour {
         idleProfit();
         scrollingPlanets();
         bgCleanup();
+        UpdateValues();
         PlayerPrefs.SetFloat("currency",currency);
 	}
 
@@ -549,6 +557,16 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetFloat("idleCost", idleCost);
         PlayerPrefs.SetFloat("idleCost2", idleCost2);
         PlayerPrefs.SetFloat("idleCost3", idleCost3);
+    }
+
+    public void UpdateValues()
+    {
+        planetsText.GetComponent<Text>().text = "Planets: " + numPlanets;
+        resourceValueText.GetComponent<Text>().text = "Resource Value: " + resourcePrice;
+        tapPowerText.GetComponent<Text>().text = "Tap Power: " + clickUpgradeAmount;
+        lumberjacksText.GetComponent<Text>().text = "Lumberjacks: ";
+        minersText.GetComponent<Text>().text = "Miners: ";
+        mercenariesText.GetComponent<Text>().text = "Mercenaries: ";
     }
 }
 
