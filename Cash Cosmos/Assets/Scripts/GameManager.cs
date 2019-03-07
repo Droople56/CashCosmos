@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour {
     public GameObject currentBackground;
     public GameObject background;
     GameObject bgTemp;
-    public GameObject planet1;
-    public GameObject planet2;
-    public GameObject planet3;
-    public GameObject planet4;
+	public GameObject[] planetList;
+	
+	public AudioClip crumbleSound;
+	public AudioClip explosionSound;
 
     long lastShutdownTime;
     long currentTimeIdle;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
         checkPlayerPrefs();
         //modifier = 1.0f;
 
-        numPlanets = 5;
+        numPlanets = 9;
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
 
@@ -82,8 +82,11 @@ public class GameManager : MonoBehaviour {
         //start with random planets
         for (int i = 0; i < numPlanets; i++)
         {
-            int rand = Random.Range(1, 4);
+            int rand = Random.Range(0, 8);
             GameObject thisPlanet;
+			thisPlanet = Instantiate(planetList[rand], new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
+            planets.Add(thisPlanet);
+			/*
             switch (rand)
             {
                 case 1:
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour {
                     break;
                 default:
                     break;
-            }
+            }*/
         }
         
     }
@@ -299,9 +302,11 @@ public class GameManager : MonoBehaviour {
     {
         if (planets.Count < numPlanets)
         {
-            int rand = Random.Range(1, 5);
-            //Default Case
-            GameObject thisPlanet;
+            int rand = Random.Range(0, 8);
+            GameObject thisPlanet; //Default Case
+			thisPlanet = Instantiate(planetList[rand], new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
+            planets.Add(thisPlanet);
+			/*
             switch (rand)
             {
                 case 1:
@@ -322,7 +327,7 @@ public class GameManager : MonoBehaviour {
                     break;
                 default:
                     break;
-            }
+            }*/
             
         }
     }

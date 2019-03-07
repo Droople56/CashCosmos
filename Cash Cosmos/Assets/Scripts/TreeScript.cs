@@ -13,7 +13,14 @@ public class TreeScript : MonoBehaviour {
     private Vector2 planetFeedbackScale;
     private int scaleTimer;
     GameManager mngr;
-
+	
+	private AudioSource audioSrc;
+	
+	void Awake() {
+		mngr = GameObject.Find("GameManager").GetComponent<GameManager>();
+		audioSrc = mngr.GetComponent<AudioSource>();
+	}
+	
 	// Use this for initialization
 	void Start () {
         
@@ -39,7 +46,37 @@ public class TreeScript : MonoBehaviour {
                 planetHealth = 19;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
-            case 4:
+			case 4:
+                planetValue = 50;
+                speedMod = Random.Range(2.0f, 2.5f);
+                planetHealth = 19;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
+			case 5:
+                planetValue = 50;
+                speedMod = Random.Range(2.0f, 2.5f);
+                planetHealth = 19;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
+			case 6:
+                planetValue = 50;
+                speedMod = Random.Range(2.0f, 2.5f);
+                planetHealth = 19;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
+			case 7:
+                planetValue = 50;
+                speedMod = Random.Range(2.0f, 2.5f);
+                planetHealth = 19;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
+			case 8:
+                planetValue = 50;
+                speedMod = Random.Range(2.0f, 2.5f);
+                planetHealth = 19;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
+            case 9:
                 planetValue = -10;
                 speedMod = Random.Range(0.8f, 1.5f);
                 planetHealth = 4;
@@ -51,7 +88,6 @@ public class TreeScript : MonoBehaviour {
 
         this.transform.localScale *= planetScale;
         planetFeedbackScale = transform.localScale;
-        mngr = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -61,6 +97,7 @@ public class TreeScript : MonoBehaviour {
 
     private void OnMouseDown()
     {
+		audioSrc.PlayOneShot(mngr.crumbleSound, 0.8f);
         planetHealth--;
         giveFeedback = true;
         finalClick();
@@ -95,6 +132,7 @@ public class TreeScript : MonoBehaviour {
     {
         if (planetHealth == -1)
         {
+			audioSrc.PlayOneShot(mngr.explosionSound, 0.2f);
             this.planetValue = this.planetValue * 10;
         }
     }
