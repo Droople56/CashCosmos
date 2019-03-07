@@ -477,7 +477,7 @@ public class GameManager : MonoBehaviour {
         //I had crash problem when I tried to run this all in one foreach, so I did this scuff workaround.
         foreach (GameObject planet in planets)
         {
-            if (planet.GetComponent<TreeScript>().planetHealth < 0)
+            if (planet.GetComponent<TreeScript>().isAlive == false)
             {
                 //planet.GetComponent<TreeScript>().planetValue *= 10;
                 destroyedPlanets.Add(planet);

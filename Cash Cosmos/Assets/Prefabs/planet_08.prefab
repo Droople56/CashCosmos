@@ -68,10 +68,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10046945ad5e94db5171c61f4cd378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_sprRender: {fileID: 0}
   planetNumber: 8
   planetValue: 0
   planetHealth: 0
   speedMod: 0
+  isAlive: 1
+  explosion:
+  - {fileID: 21300000, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300002, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300004, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300006, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300008, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300010, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300012, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300014, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300016, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300018, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300020, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300022, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300024, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300026, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
+  - {fileID: 21300028, guid: 74bc8ee09a122ba4790039a6d0a825da, type: 3}
 --- !u!212 &212950697989607184
 SpriteRenderer:
   m_ObjectHideFlags: 1

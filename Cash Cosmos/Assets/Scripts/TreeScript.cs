@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class TreeScript : MonoBehaviour {
-
+	public SpriteRenderer m_sprRender;
+	
     public int planetNumber;
     public int planetValue;
     public int planetHealth;
     public float speedMod;
     private float planetScale;
     bool giveFeedback;
+	public bool isAlive = true;
     private Vector2 planetFeedbackScale;
     private int scaleTimer;
     GameManager mngr;
-
+	
+	public Sprite[] explosion;
+	
     int clickStrength;
 	
 	private AudioSource audioSrc;
@@ -26,6 +31,7 @@ public class TreeScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		m_sprRender = GetComponent<SpriteRenderer>();
         
         scaleTimer = 0;
         giveFeedback = false;
@@ -100,11 +106,13 @@ public class TreeScript : MonoBehaviour {
 
     private void OnMouseDown()
     {
-		audioSrc.PlayOneShot(mngr.crumbleSound, 0.8f);
-        planetHealth -= clickStrength;
-        giveFeedback = true;
-        finalClick();
-        mngr.SellResource(planetValue * clickStrength);
+		if (planetHealth > -1) {
+			audioSrc.PlayOneShot(mngr.crumbleSound, 0.8f);
+			planetHealth -= clickStrength;
+			giveFeedback = true;
+			finalClick();
+			mngr.SellResource(planetValue * clickStrength);
+		}
     }
 
     void clickFeedback()
@@ -136,7 +144,28 @@ public class TreeScript : MonoBehaviour {
         if (planetHealth <= -1)
         {
 			audioSrc.PlayOneShot(mngr.explosionSound, 0.2f);
+			StartCoroutine(Explosion());
             this.planetValue = this.planetValue * 10 * clickStrength;
         }
+    }
+	
+	private IEnumerator Explosion()
+    {	
+		int index = 0;
+        float timeToNextFrame = 1 / 30.0f;		
+		while (isAlive) {
+			yield return new WaitForSeconds(timeToNextFrame);
+			
+			if (index >= explosion.Length) {
+				//index = 0;
+				isAlive = false;
+			}
+			else {
+				m_sprRender.sprite = explosion[index];
+				index++;
+			}
+		}
+		
+        yield break;
     }
 }
