@@ -16,6 +16,9 @@ public class TreeScript : MonoBehaviour {
     private Vector2 planetFeedbackScale;
     private int scaleTimer;
     GameManager mngr;
+
+    //For paywall
+    public bool purchased;
 	
 	public Sprite[] explosion;
 	
