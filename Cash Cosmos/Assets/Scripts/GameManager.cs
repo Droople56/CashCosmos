@@ -187,7 +187,9 @@ public class GameManager : MonoBehaviour {
             workValue = 0.0f;
 
         if (PlayerPrefs.HasKey("workValue2"))
+        {
             workValue2 = PlayerPrefs.GetFloat("workValue2", workValue2);
+        }
         else
             workValue2 = 0.0f;
 
@@ -531,7 +533,7 @@ public class GameManager : MonoBehaviour {
         workValue2 = 0.0f;
         workValue3 = 0.0f;
         PlayerPrefs.SetFloat("workValue", workValue);
-        PlayerPrefs.SetFloat("worKValue2", workValue2);
+        PlayerPrefs.SetFloat("workValue2", workValue2);
         PlayerPrefs.SetFloat("worKValue3", workValue3);
 
         //reset idleCosts
