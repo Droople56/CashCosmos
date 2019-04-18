@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     float planetUpgradeCost;
     int planetUpgradeAmount;
 
+    int planetsPurchased;
+
     const int MAX_PLANETS = 10;
     int numPlanets;
 
@@ -78,6 +80,9 @@ public class GameManager : MonoBehaviour {
     void Start () {
         checkPlayerPrefs();
 
+        //This will deal with paying for planets
+        planetsPurchased = 8;
+
         numPlanets = 5;
 
         currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
@@ -115,33 +120,12 @@ public class GameManager : MonoBehaviour {
         //start with random planets
         for (int i = 0; i < numPlanets; i++)
         {
-            int rand = Random.Range(0, 8);
+            int rand = Random.Range(0, planetsPurchased);
             GameObject thisPlanet;
 			thisPlanet = Instantiate(planetList[rand], new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
             planets.Add(thisPlanet);
-			/*
-            switch (rand)
-            {
-                case 1:
-                    thisPlanet = Instantiate(planet1, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
-                    planets.Add(thisPlanet);
-                    break;
-                case 2:
-                    thisPlanet = Instantiate(planet2, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
-                    planets.Add(thisPlanet);
-                    break;
-                case 3:
-                    thisPlanet = Instantiate(planet3, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
-                    planets.Add(thisPlanet);
-                    break;
-                case 4:
-                    thisPlanet = Instantiate(planet4, new Vector3(Random.Range(-3.5f, 2.5f), Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
-                    planets.Add(thisPlanet);
-                    break;
-                default:
-                    break;
-            }*/
         }
+        
         
     }
 	
@@ -441,7 +425,7 @@ public class GameManager : MonoBehaviour {
     {
         if (planets.Count < numPlanets)
         {
-            int rand = Random.Range(0, 8);
+            int rand = Random.Range(0, planetsPurchased);
             GameObject thisPlanet; //Default Case
 			thisPlanet = Instantiate(planetList[rand], new Vector3(3.5f, Random.Range(-4.35f, 0.9f), 0), Quaternion.identity);
             planets.Add(thisPlanet);
