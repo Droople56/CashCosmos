@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     float planetUpgradeCost;
     int planetUpgradeAmount;
 
-    int planetsPurchased;
+    [HideInInspector]public int planetsPurchased;
 
     const int MAX_PLANETS = 10;
     int numPlanets;
@@ -543,6 +543,8 @@ public class GameManager : MonoBehaviour {
         PlayerPrefs.SetFloat("idleCost", idleCost);
         PlayerPrefs.SetFloat("idleCost2", idleCost2);
         PlayerPrefs.SetFloat("idleCost3", idleCost3);
+
+        GetComponent<PlanetUnlocks>().ResetUnlocks();
     }
 
     public void UpdateValues()
