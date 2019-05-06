@@ -853,7 +853,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1103,6 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 1000000
   yield: 50
 --- !u!114 &246842215
@@ -1151,7 +1152,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1588,6 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 100000
   yield: 50
 --- !u!114 &339522098
@@ -1636,7 +1638,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1814,6 +1816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 1000
   yield: 50
 --- !u!114 &385808101
@@ -2629,6 +2632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 10000
   yield: 50
 --- !u!114 &607074949
@@ -2677,7 +2681,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4082,6 +4086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 10000000
   yield: 50
 --- !u!114 &1203924932
@@ -4130,7 +4135,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4481,6 +4486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currency: 0
   planetsPurchased: 0
+  currencyText: {fileID: 112580877}
   workTime: 0.1
   workIncrement: 0.2
   workTime2: 1
@@ -4491,7 +4497,8 @@ MonoBehaviour:
   clickUpgradeIncrement: 50000
   planets: []
   destroyedPlanets: []
-  currentBackground: {fileID: 0}
+  currentBackground: {fileID: 1671223963926552, guid: 8918ccd678c53194f95241517bc791c9,
+    type: 3}
   background: {fileID: 1671223963926552, guid: 8918ccd678c53194f95241517bc791c9, type: 3}
   planetList:
   - {fileID: 1829207613277664, guid: c5bc0279abad7c541a7ab861b16c0caf, type: 3}
@@ -4649,6 +4656,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64a1c9a70a9a894187d9ab7177fad48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile1: {fileID: 6721677299967432487}
+  tile2: {fileID: 385808100}
+  tile3: {fileID: 607074948}
+  tile4: {fileID: 339522097}
+  tile5: {fileID: 246842214}
+  tile6: {fileID: 1203924931}
 --- !u!1 &1562031311
 GameObject:
   m_ObjectHideFlags: 0
@@ -6803,6 +6816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f708d0fde6918fd44888ad7d20f4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocked: 0
   cost: 100
   yield: 50
 --- !u!224 &7544219464004613439

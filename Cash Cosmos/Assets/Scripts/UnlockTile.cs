@@ -7,6 +7,8 @@ public class UnlockTile : MonoBehaviour
 {
     Text description;
 
+    [HideInInspector] public bool unlocked;
+    [HideInInspector] public bool isPurchaseable;
     public float cost = 100.0f;
     public float yield = 0.0f;
 
@@ -15,6 +17,26 @@ public class UnlockTile : MonoBehaviour
     {
         description = this.transform.GetChild(1).GetComponent<Text>();
         description.text = "Cost: " + cost + "\nDestruction Profit: " + yield;
+    }
+
+    private void Update()
+    {
+        if (!isPurchaseable)
+        {
+            GetComponent<Image>().color = Color.grey;
+        }
+        else
+        {
+            if (unlocked)
+            {
+                GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                GetComponent<Image>().color = Color.white;
+            }
+
+        }
     }
 
 }

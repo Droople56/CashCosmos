@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
     const int MAX_PLANETS = 10;
     int numPlanets;
 
-    Text currencyText;
+    public Text currencyText;
     Text resourceText;
     Button resourceUpgradeButton;
     Button planetUpgradeButton;
@@ -78,14 +78,13 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        checkPlayerPrefs();
 
         //This will deal with paying for planets
-        planetsPurchased = 8;
+        planetsPurchased = 2;
+
+        checkPlayerPrefs();
 
         numPlanets = 5;
-
-        currencyText = GameObject.Find("CurrencyText").GetComponent<Text>();
 
         currentBackground = GameObject.Find("space_01");
         bgTemp = null;
@@ -213,7 +212,6 @@ public class GameManager : MonoBehaviour {
             long.TryParse(PlayerPrefs.GetString("lastShutdownTime", "0"), out lastShutdownTime);
             calculateAwayProfit();
         }
-            
     }
 
     //calculate idle gains between last time app was closed and now
@@ -239,7 +237,7 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        currencyText.text = "Monies: $" + System.String.Format("{0:0.0}", System.Math.Round(currency, 1));
+        currencyText.text= "Monies: $" + System.String.Format("{0:0.0}", System.Math.Round(currency, 1));
         
         idleProfit();
         scrollingPlanets();
