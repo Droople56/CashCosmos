@@ -40,6 +40,13 @@ public class TreeScript : MonoBehaviour {
         giveFeedback = false;
         switch (planetNumber)
         {
+            //neg planet
+            case 0:
+                planetValue = -10;
+                speedMod = Random.Range(0.8f, 1.5f);
+                planetHealth = 4;
+                planetScale = Random.Range(0.5f, 0.7f);
+                break;
             case 1:
                 planetValue = 1;
                 speedMod = Random.Range(0.8f, 1.5f);
@@ -59,41 +66,36 @@ public class TreeScript : MonoBehaviour {
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
 			case 4:
-                planetValue = 50;
+                planetValue = 100;
                 speedMod = Random.Range(2.0f, 2.5f);
-                planetHealth = 19;
+                planetHealth = 29;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
 			case 5:
-                planetValue = 50;
+                planetValue = 300;
                 speedMod = Random.Range(2.0f, 2.5f);
-                planetHealth = 19;
+                planetHealth = 34;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
 			case 6:
-                planetValue = 50;
+                planetValue = 600;
                 speedMod = Random.Range(2.0f, 2.5f);
-                planetHealth = 19;
+                planetHealth = 39;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
 			case 7:
-                planetValue = 50;
+                planetValue = 1000;
                 speedMod = Random.Range(2.0f, 2.5f);
-                planetHealth = 19;
+                planetHealth = 44;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
 			case 8:
-                planetValue = 50;
+                planetValue = 10000;
                 speedMod = Random.Range(2.0f, 2.5f);
-                planetHealth = 19;
+                planetHealth = 49;
                 planetScale = Random.Range(0.5f, 0.7f);
                 break;
-            case 9:
-                planetValue = -10;
-                speedMod = Random.Range(0.8f, 1.5f);
-                planetHealth = 4;
-                planetScale = Random.Range(0.5f, 0.7f);
-                break;
+            
             default:
                 break;
         }
